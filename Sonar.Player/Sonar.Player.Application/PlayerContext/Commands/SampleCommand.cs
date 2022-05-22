@@ -12,6 +12,7 @@ public static class SampleCommand
     {
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
+            throw new NotImplementedException();
         }
     }
 }

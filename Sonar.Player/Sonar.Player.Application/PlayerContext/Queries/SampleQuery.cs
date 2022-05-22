@@ -12,6 +12,7 @@ public static class SampleQuery
     {
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
+            throw new NotImplementedException();
         }
     }
 }
