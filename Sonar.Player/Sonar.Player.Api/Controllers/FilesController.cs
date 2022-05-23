@@ -21,7 +21,7 @@ public class FilesController : Controller
     }
 
     [HttpGet("/{streamPartName}")]
-    public async Task<IActionResult> GetStreamPartAsync(string streamPartName)
+    public async Task<IActionResult> GetStreamPartAsync([FromRoute] string streamPartName)
     {
         throw new NotImplementedException();
     }
