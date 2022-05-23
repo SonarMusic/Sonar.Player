@@ -3,7 +3,7 @@
 namespace Sonar.Player.Api.Controllers;
 
 [ApiController]
-[Route("files")]
+[Route("{controller}")]
 public class FilesController : Controller
 {
     [HttpPost("/track")]
@@ -26,7 +26,7 @@ public class FilesController : Controller
         throw new NotImplementedException();
     }
 
-    [HttpDelete("/track}")]
+    [HttpDelete("/track")]
     public async Task<IActionResult> DeleteTrackAsync([FromQuery] Guid trackId)
     {
         throw new NotImplementedException();

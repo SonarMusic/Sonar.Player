@@ -2,28 +2,30 @@
 
 namespace Sonar.Player.Api.Controllers;
 
-public class PlayerContextController
+[ApiController]
+[Route("{controller}")]
+public class QueueController : Controller
 {
-    [HttpGet("/queue")]
+    [HttpGet]
     //TODO: Change to ActionResult<GetQueueQuery.Response> or sth
     public async Task<IActionResult> GetQueueAsync()
     {
         throw new NotImplementedException();
     }
 
-    [HttpPatch("/queue/track")]
+    [HttpPatch("/track")]
     public async Task<IActionResult> AddTrackToQueueAsync([FromQuery] Guid trackId)
     {
         throw new NotImplementedException();
     }
 
-    [HttpDelete("/queue")]
+    [HttpDelete]
     public async Task<IActionResult> PurgeQueueAsync()
     {
         throw new NotImplementedException();
     }
 
-    [HttpPatch("/queue/shuffle")]
+    [HttpPatch("/shuffle")]
     public async Task<IActionResult> ShuffleQueueAsync()
     {
         throw new NotImplementedException();
