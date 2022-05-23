@@ -5,13 +5,14 @@ namespace Sonar.Player.Api.Controllers;
 public class PlayerContextController
 {
     [HttpGet("/queue")]
+    //TODO: Change to ActionResult<GetQueueQuery.Response> or sth
     public async Task<IActionResult> GetQueueAsync()
     {
         throw new NotImplementedException();
     }
 
     [HttpPatch("/queue/track")]
-    public async Task<IActionResult> AddTrackToQueueAsync([FromQuery] string trackId)
+    public async Task<IActionResult> AddTrackToQueueAsync([FromQuery] Guid trackId)
     {
         throw new NotImplementedException();
     }

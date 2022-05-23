@@ -4,9 +4,10 @@ namespace Sonar.Player.Api.Controllers;
 
 [ApiController]
 [Route("files")]
-public class FilesController
+public class FilesController : Controller
 {
     [HttpPost("/track")]
+    //TODO: Change to ActionResult<UploadTrackCommand.Response> or sth
     public async Task<IActionResult> UploadTrackAsync([FromQuery] string name)
     {
         //TODO: get file from request content
@@ -14,7 +15,7 @@ public class FilesController
     }
 
     [HttpGet("/trackStreamInfo")]
-    public async Task<IActionResult> GetTrackStreamInfoAsync([FromQuery(Name = "id")] string trackId)
+    public async Task<IActionResult> GetTrackStreamInfoAsync([FromQuery(Name = "id")] Guid trackId)
     {
         throw new NotImplementedException();
     }
@@ -26,7 +27,7 @@ public class FilesController
     }
 
     [HttpDelete("/track}")]
-    public async Task<IActionResult> DeleteTrackAsync([FromQuery] string trackId)
+    public async Task<IActionResult> DeleteTrackAsync([FromQuery] Guid trackId)
     {
         throw new NotImplementedException();
     }
