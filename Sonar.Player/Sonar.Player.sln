@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonar.Player.DataAccess", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonar.Player.Domain", "Sonar.Player.Domain\Sonar.Player.Domain.csproj", "{5A89E979-4864-4420-A1DE-957D2D285D60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonar.Player.ApiClient", "Sonar.Player.ApiClient\Sonar.Player.ApiClient.csproj", "{272D1464-823F-4DEE-9833-35E97DED2134}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{5A89E979-4864-4420-A1DE-957D2D285D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A89E979-4864-4420-A1DE-957D2D285D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A89E979-4864-4420-A1DE-957D2D285D60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272D1464-823F-4DEE-9833-35E97DED2134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272D1464-823F-4DEE-9833-35E97DED2134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272D1464-823F-4DEE-9833-35E97DED2134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272D1464-823F-4DEE-9833-35E97DED2134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
