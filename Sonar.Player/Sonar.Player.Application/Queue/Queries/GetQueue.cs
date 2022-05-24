@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Sonar.Player.Application.PlayerContext.Queries;
+namespace Sonar.Player.Application.Queue.Queries;
 
-public static class SampleQuery
+public static class GetQueue
 {
     public record Query() : IRequest<Response>;
 

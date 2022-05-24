@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Sonar.Player.Application.Queue.Commands;
+using Sonar.Player.Application.Queue.Queries;
 
 namespace Sonar.Player.Api.Controllers;
 
@@ -6,28 +9,34 @@ namespace Sonar.Player.Api.Controllers;
 [Route("{controller}")]
 public class QueueController : Controller
 {
-    [HttpGet]
-    //TODO: Change to ActionResult<GetQueueQuery.Response> or sth
-    public async Task<IActionResult> GetQueueAsync()
+    private readonly IMediator _mediator;
+
+    public QueueController(IMediator mediator)
     {
-        throw new NotImplementedException();
+        _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<GetQueue.Response>> GetQueueAsync(CancellationToken cancellationToken = default)
+    {
+        return Ok(await _mediator.Send(new GetQueue.Query(), cancellationToken));
     }
 
     [HttpPatch("/track")]
-    public async Task<IActionResult> AddTrackToQueueAsync([FromQuery] Guid trackId)
+    public async Task<ActionResult<AddTrackToQueue.Response>> AddTrackToQueueAsync([FromQuery] Guid trackId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return Ok(await _mediator.Send(new AddTrackToQueue.Command(), cancellationToken));
     }
 
     [HttpDelete]
-    public async Task<IActionResult> PurgeQueueAsync()
+    public async Task<ActionResult<ShuffleQueue.Response>> PurgeQueueAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return Ok(await _mediator.Send(new PurgeQueue.Command(), cancellationToken));
     }
 
     [HttpPatch("/shuffle")]
-    public async Task<IActionResult> ShuffleQueueAsync()
+    public async Task<ActionResult<ShuffleQueue.Response>> ShuffleQueueAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return Ok(await _mediator.Send(new ShuffleQueue.Command(), cancellationToken));
     }
 }

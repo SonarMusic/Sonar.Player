@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Sonar.Player.Application.PlayerContext.Commands;
+namespace Sonar.Player.Application.Queue.Commands;
 
-public static class SampleCommand
+public static class AddTrackToQueue
 {
     public record Command() : IRequest<Response>;
 
