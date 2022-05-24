@@ -22,39 +22,39 @@ namespace Sonar.Player.ApiClient
     {
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string name);
+        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string name, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(System.Guid? trackId);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(System.Guid? trackId, System.Threading.CancellationToken cancellationToken);
-
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TrackStreamInfoAsync(System.Guid? id);
+        System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task TrackStreamInfoAsync(System.Guid? id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task FilesAsync(string streamPartName);
+        System.Threading.Tasks.Task TrackStreamInfoAsync(string token, System.Guid? id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task FilesAsync(string streamPartName, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TrackStreamInfoAsync(string token, System.Guid? id, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task FilesAsync(string token, string streamPartName);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task FilesAsync(string token, string streamPartName, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -95,15 +95,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string name)
+        public virtual System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name)
         {
-            return TrackPOSTAsync(name, System.Threading.CancellationToken.None);
+            return TrackPOSTAsync(token, name, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string name, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/track?");
@@ -119,6 +119,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "text/plain");
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
@@ -175,15 +178,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(System.Guid? trackId)
+        public virtual System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId)
         {
-            return TrackDELETEAsync(trackId, System.Threading.CancellationToken.None);
+            return TrackDELETEAsync(token, trackId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/track?");
@@ -199,6 +202,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -254,15 +260,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task TrackStreamInfoAsync(System.Guid? id)
+        public virtual System.Threading.Tasks.Task TrackStreamInfoAsync(string token, System.Guid? id)
         {
-            return TrackStreamInfoAsync(id, System.Threading.CancellationToken.None);
+            return TrackStreamInfoAsync(token, id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TrackStreamInfoAsync(System.Guid? id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TrackStreamInfoAsync(string token, System.Guid? id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/trackStreamInfo?");
@@ -278,6 +284,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -327,15 +336,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task FilesAsync(string streamPartName)
+        public virtual System.Threading.Tasks.Task FilesAsync(string token, string streamPartName)
         {
-            return FilesAsync(streamPartName, System.Threading.CancellationToken.None);
+            return FilesAsync(token, streamPartName, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task FilesAsync(string streamPartName, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task FilesAsync(string token, string streamPartName, System.Threading.CancellationToken cancellationToken)
         {
             if (streamPartName == null)
                 throw new System.ArgumentNullException("streamPartName");
@@ -350,6 +359,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -505,39 +517,39 @@ namespace Sonar.Player.ApiClient
     {
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync();
+        System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(string token);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(string token, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync();
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(System.Threading.CancellationToken cancellationToken);
-
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(System.Guid? trackId);
+        System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(string token);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(System.Guid? trackId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(string token, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync();
+        System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(string token, System.Guid? trackId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(string token);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(string token, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -578,15 +590,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync()
+        public virtual System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(string token)
         {
-            return QueueGETAsync(System.Threading.CancellationToken.None);
+            return QueueGETAsync(token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue");
@@ -597,6 +609,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -652,15 +667,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync()
+        public virtual System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(string token)
         {
-            return QueueDELETEAsync(System.Threading.CancellationToken.None);
+            return QueueDELETEAsync(token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue");
@@ -671,6 +686,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -726,15 +744,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(System.Guid? trackId)
+        public virtual System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(string token, System.Guid? trackId)
         {
-            return TrackPATCHAsync(trackId, System.Threading.CancellationToken.None);
+            return TrackPATCHAsync(token, trackId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue/track?");
@@ -750,6 +768,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "text/plain");
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
@@ -806,15 +827,15 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync()
+        public virtual System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(string token)
         {
-            return ShuffleAsync(System.Threading.CancellationToken.None);
+            return ShuffleAsync(token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue/shuffle");
@@ -825,6 +846,9 @@ namespace Sonar.Player.ApiClient
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+
+                    if (token != null)
+                        request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "text/plain");
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
