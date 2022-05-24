@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Sonar.Player.Application.Files.Commands;
+using Sonar.Player.Application.Files.Queries;
 
 namespace Sonar.Player.Api.Controllers;
 
@@ -6,29 +9,37 @@ namespace Sonar.Player.Api.Controllers;
 [Route("{controller}")]
 public class FilesController : Controller
 {
+    private readonly IMediator _mediator;
+
+    public FilesController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     [HttpPost("/track")]
-    //TODO: Change to ActionResult<UploadTrackCommand.Response> or sth
-    public async Task<IActionResult> UploadTrackAsync([FromQuery] string name)
+    public async Task<ActionResult<UploadTrack.Response>> UploadTrackAsync([FromQuery] string name)
     {
         //TODO: get file from request content
-        throw new NotImplementedException();
+        return Ok(await _mediator.Send(new UploadTrack.Command()));
     }
 
     [HttpGet("/trackStreamInfo")]
     public async Task<IActionResult> GetTrackStreamInfoAsync([FromQuery(Name = "id")] Guid trackId)
     {
-        throw new NotImplementedException();
+        var response = await _mediator.Send(new GetTrackStreamInfo.Query());
+        return File(response.TrackInfoStream, "application/x-mpegURL", true);
     }
 
     [HttpGet("/{streamPartName}")]
     public async Task<IActionResult> GetStreamPartAsync([FromRoute] string streamPartName)
     {
-        throw new NotImplementedException();
+        var response = await _mediator.Send(new GetStreamPart.Query());
+        return File(response.StreamPart, "audio/MPA", true);
     }
 
     [HttpDelete("/track")]
-    public async Task<IActionResult> DeleteTrackAsync([FromQuery] Guid trackId)
+    public async Task<ActionResult<DeleteTrack.Response>> DeleteTrackAsync([FromQuery] Guid trackId)
     {
-        throw new NotImplementedException();
+        return Ok(await _mediator.Send(new DeleteTrack.Command()));
     }
 }
