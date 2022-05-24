@@ -16,10 +16,11 @@ public class AudioFormat : Enumeration<string, AudioFormat>
 
     public static AudioFormat FromFileName(string filename)
     {
-        return filename switch
+        ArgumentNullException.ThrowIfNull(filename);
+        return Path.GetExtension(filename) switch
         {
-            _ when Regex.IsMatch(filename, @".+\.mp3") => Mp3,
-            _ when Regex.IsMatch(filename, @".+\.wav") => Wav,
+            "mp3" => Mp3,
+            "wav" => Wav,
             _ => throw new EnumerationParseException<string>(nameof(AudioFormat), filename)
         };
     }
