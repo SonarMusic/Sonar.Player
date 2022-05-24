@@ -7,11 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+      <ProjectReference Include="..\Sonar.Player.Application\Sonar.Player.Application.csproj" />
+      <ProjectReference Include="..\Sonar.Player.DataAccess\Sonar.Player.DataAccess.csproj" />
     </ItemGroup>
 
 </Project>
