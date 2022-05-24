@@ -28,7 +28,7 @@ public abstract class Enumeration<TValue, TEnumeration> : IEquatable<TEnumeratio
         => !(left == right);
 
     public bool Equals(TEnumeration? other)
-        => other is not null && (other.Value?.Equals(Value) ?? false);
+        => other?.Value?.Equals(Value) ?? false;
 
     public override bool Equals(object? obj)
         => Equals(obj as TEnumeration);
