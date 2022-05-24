@@ -4,6 +4,8 @@ public class TracksQueue
 {
     private List<Track> _tracks;
 
+    public IReadOnlyCollection<Track> Tracks => _tracks.AsReadOnly();
+
     public TracksQueue()
     {
         _tracks = new List<Track>();
