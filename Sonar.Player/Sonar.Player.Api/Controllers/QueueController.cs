@@ -5,8 +5,8 @@ using Sonar.Player.Application.Queue.Queries;
 
 namespace Sonar.Player.Api.Controllers;
 
+[Route("[controller]")]
 [ApiController]
-[Route("{controller}")]
 public class QueueController : Controller
 {
     private readonly IMediator _mediator;
@@ -22,7 +22,7 @@ public class QueueController : Controller
         return Ok(await _mediator.Send(new GetQueue.Query(), cancellationToken));
     }
 
-    [HttpPatch("/track")]
+    [HttpPatch("track")]
     public async Task<ActionResult<AddTrackToQueue.Response>> AddTrackToQueueAsync([FromQuery] Guid trackId, CancellationToken cancellationToken = default)
     {
         return Ok(await _mediator.Send(new AddTrackToQueue.Command(), cancellationToken));
@@ -34,7 +34,7 @@ public class QueueController : Controller
         return Ok(await _mediator.Send(new PurgeQueue.Command(), cancellationToken));
     }
 
-    [HttpPatch("/shuffle")]
+    [HttpPatch("shuffle")]
     public async Task<ActionResult<ShuffleQueue.Response>> ShuffleQueueAsync(CancellationToken cancellationToken = default)
     {
         return Ok(await _mediator.Send(new ShuffleQueue.Command(), cancellationToken));
