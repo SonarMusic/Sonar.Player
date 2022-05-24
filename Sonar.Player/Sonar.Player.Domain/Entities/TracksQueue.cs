@@ -2,21 +2,16 @@
 
 public class TracksQueue
 {
-    private List<Track> _tracks;
+    private readonly List<Track> _tracks = new List<Track>();
 
     public IReadOnlyCollection<Track> Tracks => _tracks.AsReadOnly();
 
-    public TracksQueue()
+    public Track Next()
     {
-        _tracks = new List<Track>();
-    }
-    
-    private TracksQueue(ICollection<Track> tracks)
-    {
-        _tracks = tracks.ToList();
+        throw new NotImplementedException();
     }
 
-    public Track Next()
+    public void Enqueue(Track track)
     {
         throw new NotImplementedException();
     }
