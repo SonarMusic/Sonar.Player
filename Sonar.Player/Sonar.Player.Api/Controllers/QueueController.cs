@@ -5,8 +5,8 @@ using Sonar.Player.Application.Queue.Queries;
 
 namespace Sonar.Player.Api.Controllers;
 
-[Route("[controller]")]
 [ApiController]
+[Route("[controller]")]
 public class QueueController : Controller
 {
     private readonly IMediator _mediator;

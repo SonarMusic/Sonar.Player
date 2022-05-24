@@ -5,8 +5,8 @@ using Sonar.Player.Application.Files.Queries;
 
 namespace Sonar.Player.Api.Controllers;
 
-[Route("[controller]")]
 [ApiController]
+[Route("[controller]")]
 public class FilesController : Controller
 {
     private readonly IMediator _mediator;
