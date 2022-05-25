@@ -1,12 +1,12 @@
 ﻿using MediatR;
 
-namespace Sonar.Player.Application.PlayerContext.Queries;
+namespace Sonar.Player.Application.Files.Queries;
 
-public static class SampleQuery
+public static class GetTrackStreamInfo
 {
     public record Query() : IRequest<Response>;
 
-    public record Response();
+    public record Response(FileStream TrackInfoStream);
 
     public class QueryHandler : IRequestHandler<Query, Response>
     {

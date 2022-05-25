@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Sonar.Player.Application.PlayerContext.Commands;
+namespace Sonar.Player.Application.Files.Commands;
 
-public static class SampleCommand
+public static class UploadTrack
 {
     public record Command() : IRequest<Response>;
 
