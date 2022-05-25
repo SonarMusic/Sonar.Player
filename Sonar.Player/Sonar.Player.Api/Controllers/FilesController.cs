@@ -25,7 +25,7 @@ public class FilesController : Controller
         return Ok(await _mediator.Send(new UploadTrack.Command()));
     }
 
-    [HttpGet("trackStreamInfo")]
+    [HttpGet("track-stream-info")]
     public async Task<IActionResult> GetTrackStreamInfoAsync(
         [FromHeader(Name = "Token")] string token,
         [FromQuery(Name = "id")] Guid trackId)

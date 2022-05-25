@@ -106,7 +106,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/track?");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/track?");
             if (name != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -189,7 +189,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/track?");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/track?");
             if (trackId != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("trackId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(trackId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -271,7 +271,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task TrackStreamInfoAsync(string token, System.Guid? id, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/trackStreamInfo?");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/track-stream-info?");
             if (id != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -350,7 +350,7 @@ namespace Sonar.Player.ApiClient
                 throw new System.ArgumentNullException("streamPartName");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Files/{streamPartName}");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/{streamPartName}");
             urlBuilder_.Replace("{streamPartName}", System.Uri.EscapeDataString(ConvertToString(streamPartName, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -601,7 +601,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task<GetQueue_Response> QueueGETAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/queue");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -678,7 +678,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task<ShuffleQueue_Response> QueueDELETEAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/queue");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -755,7 +755,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task<AddTrackToQueue_Response> TrackPATCHAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue/track?");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/queue/track?");
             if (trackId != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("trackId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(trackId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -838,7 +838,7 @@ namespace Sonar.Player.ApiClient
         public virtual async System.Threading.Tasks.Task<ShuffleQueue_Response> ShuffleAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Queue/shuffle");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/queue/shuffle");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
