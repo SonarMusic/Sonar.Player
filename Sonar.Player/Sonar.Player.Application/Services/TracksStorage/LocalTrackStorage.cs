@@ -22,7 +22,7 @@ public class LocalTrackStorage : ITrackStorage
 
         var fileName = $"track.{format.Value}";
         var filePath = Path.Combine(trackDirectory, fileName);
-        var fileStream = File.Create(filePath);
+        await using var fileStream = File.Create(filePath);
         await content.CopyToAsync(fileStream);
 
         return new Track(id, format, fileName);
