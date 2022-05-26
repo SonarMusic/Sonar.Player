@@ -2,9 +2,12 @@ using System.Reflection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Sonar.Player.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console());
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -48,5 +51,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseSerilogRequestLogging();
 
 app.Run();
