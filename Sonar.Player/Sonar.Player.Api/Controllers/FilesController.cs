@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Sonar.Player.Api.Controllers.Dto;
 using Sonar.Player.Application.Files.Commands;
 using Sonar.Player.Application.Files.Queries;
+using Sonar.Player.Application.Services;
 
 namespace Sonar.Player.Api.Controllers;
 
@@ -10,19 +12,31 @@ namespace Sonar.Player.Api.Controllers;
 public class FilesController : Controller
 {
     private readonly IMediator _mediator;
+    private readonly IUserService _userService;
 
-    public FilesController(IMediator mediator)
+    public FilesController(IMediator mediator, IUserService userService)
     {
         _mediator = mediator;
+        _userService = userService;
     }
 
     [HttpPost("track")]
     public async Task<ActionResult<UploadTrack.Response>> UploadTrackAsync(
         [FromHeader(Name = "Token")] string token,
-        [FromQuery] string name)
+        [FromForm] TrackFormDto form)
     {
-        //TODO: get file from request content
-        return Ok(await _mediator.Send(new UploadTrack.Command()));
+        var user = _userService.GetUser(token);
+        await using var fileStream = form.File.OpenReadStream();
+        
+        return Ok(
+            await _mediator.Send(
+                new UploadTrack.Command(
+                    user, 
+                    form.Name, 
+                    new UploadTrack.Command.TrackFile(
+                        form.File.FileName, 
+                        fileStream)
+                    )));
     }
 
     [HttpGet("track-stream-info")]
