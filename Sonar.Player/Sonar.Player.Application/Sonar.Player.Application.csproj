@@ -11,6 +11,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Sonar.UserTracksManagment\Sonar.UserTracksManagement\Sonar.UserTracksManagement.ApiClient\Sonar.UserTracksManagement.ApiClient.csproj" />
+      <ProjectReference Include="..\Sonar.Player.DataAccess\Sonar.Player.DataAccess.csproj" />
       <ProjectReference Include="..\Sonar.Player.Domain\Sonar.Player.Domain.csproj" />
     </ItemGroup>
 

@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonar.Player.ApiClient", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonar.UserProfile.ApiClient", "..\Sonar.UserProfile\Sonar.UserProfile.ApiClient\Sonar.UserProfile.ApiClient.csproj", "{7F1313DE-7C02-4752-9A46-C5054074EF1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sonar.UserTracksManagement.ApiClient", "..\Sonar.UserTracksManagment\Sonar.UserTracksManagement\Sonar.UserTracksManagement.ApiClient\Sonar.UserTracksManagement.ApiClient.csproj", "{FA5BB509-AECD-4800-AC94-AB3EEA3DFF19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{7F1313DE-7C02-4752-9A46-C5054074EF1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F1313DE-7C02-4752-9A46-C5054074EF1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F1313DE-7C02-4752-9A46-C5054074EF1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA5BB509-AECD-4800-AC94-AB3EEA3DFF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA5BB509-AECD-4800-AC94-AB3EEA3DFF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA5BB509-AECD-4800-AC94-AB3EEA3DFF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA5BB509-AECD-4800-AC94-AB3EEA3DFF19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
