@@ -44,8 +44,13 @@ builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlite("Filename=pl
 builder.Services.AddMediatR(typeof(Sonar.Player.Application.IAssemblyMarker));
 builder.Services.AddTransient<IUserService, FakeUserService>();
 builder.Services.AddTransient<IUserTracksApiClient, FakeUserTracksClient>();
+
 builder.Services.AddTransient<ITrackStorage, LocalTrackStorage>();
+builder.Services.Decorate<ITrackStorage, HlsTrackProcessor>();
+
 builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
