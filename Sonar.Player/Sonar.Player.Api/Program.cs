@@ -3,7 +3,13 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Sonar.Player.Application.Services;
+using Sonar.Player.Application.Services.TracksStorage;
+using Sonar.Player.Application.Tools;
 using Sonar.Player.Data;
+using Sonar.Player.Fakes.ApiClients;
+using Sonar.Player.Fakes.Services;
+using Sonar.UserTracksManagement.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +42,10 @@ builder.Services.AddSwaggerGen(
 );
 builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlite("Filename=player.db"));
 builder.Services.AddMediatR(typeof(Sonar.Player.Application.IAssemblyMarker));
-
+builder.Services.AddTransient<IUserService, FakeUserService>();
+builder.Services.AddTransient<IUserTracksApiClient, FakeUserTracksClient>();
+builder.Services.AddTransient<ITrackStorage, LocalTrackStorage>();
+builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,6 +60,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseSerilogRequestLogging();
 
 app.Run();

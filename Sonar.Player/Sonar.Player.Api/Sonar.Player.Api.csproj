@@ -21,6 +21,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Sonar.Player.Application\Sonar.Player.Application.csproj" />
       <ProjectReference Include="..\Sonar.Player.DataAccess\Sonar.Player.DataAccess.csproj" />
+      <ProjectReference Include="..\Sonar.Player.Fakes\Sonar.Player.Fakes.csproj" />
     </ItemGroup>
 
 </Project>
