@@ -3,6 +3,7 @@
 public interface ITrackPathBuilder
 {
     string GetTrackFolderPath(Guid trackId);
+    string GetTrackStreamFolderPath(Guid trackId);
     string GetTrackStreamInfoPath(Guid trackId);
-    string GetTackStreamPartPath(Guid trackId, string partName);
+    string GetTackStreamPartPath(string partName);
 }
