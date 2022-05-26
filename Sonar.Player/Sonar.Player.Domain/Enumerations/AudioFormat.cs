@@ -19,8 +19,8 @@ public class AudioFormat : Enumeration<string, AudioFormat>
         ArgumentNullException.ThrowIfNull(filename);
         return Path.GetExtension(filename) switch
         {
-            "mp3" => Mp3,
-            "wav" => Wav,
+            ".mp3" => Mp3,
+            ".wav" => Wav,
             _ => throw new EnumerationParseException<string>(nameof(AudioFormat), filename)
         };
     }
