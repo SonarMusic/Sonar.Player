@@ -42,10 +42,10 @@ builder.Services.AddSwaggerGen(
 );
 builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlite("Filename=player.db"));
 builder.Services.AddMediatR(typeof(Sonar.Player.Application.IAssemblyMarker));
-builder.Services.AddTransient<IUserService, FakeUserService>();
-builder.Services.AddTransient<IUserTracksApiClient, FakeUserTracksClient>();
+builder.Services.AddScoped<IUserService, FakeUserService>();
+builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
 
-builder.Services.AddTransient<ITrackStorage, LocalTrackStorage>();
+builder.Services.AddScoped<ITrackStorage, LocalTrackStorage>();
 builder.Services.Decorate<ITrackStorage, HlsTrackProcessor>();
 
 builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
