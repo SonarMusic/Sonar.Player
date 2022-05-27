@@ -18,7 +18,7 @@ public class TrackPathBuilder : ITrackPathBuilder
         return Path.Combine(GetTrackStreamFolderPath(trackId), "streamInfo.m3u8");
     }
 
-    public string GetTackStreamPartPath(string partName)
+    public string GetTrackStreamPartPath(string partName)
     {
         var trackId = partName.Split("-").First();
         return Path.Combine(GetTrackFolderPath(Guid.Parse(trackId)), "stream", partName);

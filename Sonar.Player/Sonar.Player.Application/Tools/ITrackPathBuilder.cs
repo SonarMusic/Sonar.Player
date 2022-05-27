@@ -5,5 +5,5 @@ public interface ITrackPathBuilder
     string GetTrackFolderPath(Guid trackId);
     string GetTrackStreamFolderPath(Guid trackId);
     string GetTrackStreamInfoPath(Guid trackId);
-    string GetTackStreamPartPath(string partName);
+    string GetTrackStreamPartPath(string partName);
 }
