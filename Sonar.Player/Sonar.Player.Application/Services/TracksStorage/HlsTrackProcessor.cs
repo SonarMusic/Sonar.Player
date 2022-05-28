@@ -52,4 +52,9 @@ public class HlsTrackProcessor : ITrackStorage
 
         return track;
     }
+
+    public async Task DeleteTrack(Guid id)
+    {
+        await _decorated.DeleteTrack(id);
+    }
 }
