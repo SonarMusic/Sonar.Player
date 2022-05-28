@@ -27,4 +27,13 @@ public class LocalTrackStorage : ITrackStorage
 
         return new Track(id, format, fileName);
     }
+
+    public Task DeleteTrack(Guid id)
+    {
+        var trackDirectory = _pathBuilder.GetTrackFolderPath(id);
+        if (Directory.Exists(trackDirectory))
+            Directory.Delete(trackDirectory, true);
+
+        return Task.CompletedTask;
+    }
 }

@@ -58,10 +58,12 @@ public class FilesController : Controller
     }
 
     [HttpDelete("track")]
-    public async Task<ActionResult<DeleteTrack.Response>> DeleteTrackAsync(
+    public async Task<IActionResult> DeleteTrackAsync(
         [FromHeader(Name = "Token")] string token, 
         [FromQuery] Guid trackId)
     {
-        return Ok(await _mediator.Send(new DeleteTrack.Command()));
+        var user = _userService.GetUser(token);
+        await _mediator.Send(new DeleteTrack.Command(user, trackId));
+        return Ok();
     }
 }
