@@ -5,8 +5,8 @@ namespace Sonar.Player.Fakes.Services;
 
 public class FakeUserService : IUserService
 {
-    public User GetUser(string token)
+    public Task<User> GetUserAsync(string token)
     {
-        return new User(Guid.NewGuid(), token);
+        return Task.FromResult(new User(Guid.NewGuid(), token));
     }
 }

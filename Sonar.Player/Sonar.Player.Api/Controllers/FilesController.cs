@@ -25,7 +25,7 @@ public class FilesController : Controller
         [FromHeader(Name = "Token")] string token,
         [FromForm] TrackFormDto form)
     {
-        var user = _userService.GetUser(token);
+        var user = await _userService.GetUserAsync(token);
         await using var fileStream = form.File.OpenReadStream();
         
         return Ok(
