@@ -6,12 +6,17 @@ public class Track
 {
     public Guid Id { get; private init; }
     public AudioFormat Format { get; private init; }
+    public string FileName { get; private init; }
     
-    public Track(Guid id, AudioFormat format)
+    public Track(Guid id, AudioFormat format, string fileName)
     {
         Id = id;
         Format = format;
+        FileName = fileName;
     }
 
-    private Track() { }
+    private Track(string fileName)
+    {
+        FileName = fileName;
+    }
 }
