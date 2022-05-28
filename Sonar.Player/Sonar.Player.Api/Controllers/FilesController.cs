@@ -62,7 +62,7 @@ public class FilesController : Controller
         [FromHeader(Name = "Token")] string token, 
         [FromQuery] Guid trackId)
     {
-        var user = _userService.GetUser(token);
+        var user = await _userService.GetUserAsync(token);
         await _mediator.Send(new DeleteTrack.Command(user, trackId));
         return Ok();
     }
