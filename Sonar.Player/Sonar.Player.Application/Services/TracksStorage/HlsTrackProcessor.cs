@@ -9,7 +9,7 @@ public class HlsTrackProcessor : ITrackStorage
 {
     private readonly ITrackStorage _decorated;
     private readonly ITrackPathBuilder _pathBuilder;
-    
+
     public HlsTrackProcessor(ITrackStorage decorated, ITrackPathBuilder pathBuilder)
     {
         _decorated = decorated;
@@ -30,11 +30,12 @@ public class HlsTrackProcessor : ITrackStorage
         var segmentPath = Path.Combine(streamFolderPath, segmentFilename);
         var infoFilePath = Path.Combine(streamFolderPath, "streamInfo.m3u8");
 
-        var arguments = new FfmpegArgumentsBuilder()
-            .Source(trackPath)
-            .Bitrate(4800)
-            .SegmentFilename(segmentPath)
-            .OutputFile(infoFilePath);
+        var arguments = FfmpegArgumentsBuilder.CreateBuilder()
+                                              .GetSource(trackPath)
+                                              .SetBitrate(4800)
+                                              .SetSegmentFilename(segmentPath)
+                                              .WriteTo(infoFilePath)
+                                              .Build();
 
         Process process = new()
         {
