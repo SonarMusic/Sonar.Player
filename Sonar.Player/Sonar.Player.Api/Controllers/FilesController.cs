@@ -44,7 +44,7 @@ public class FilesController : Controller
         [FromHeader(Name = "Token")] string token,
         [FromQuery(Name = "id")] Guid trackId)
     {
-        var response = await _mediator.Send(new GetTrackStreamInfo.Query());
+        var response = await _mediator.Send(new GetTrackStreamInfo.Query(token, trackId));
         return File(response.TrackInfoStream, "application/x-mpegURL", true);
     }
 
@@ -53,7 +53,8 @@ public class FilesController : Controller
         [FromHeader(Name = "Token")] string token,
         [FromRoute] string streamPartName)
     {
-        var response = await _mediator.Send(new GetStreamPart.Query());
+        var user = await _userService.GetUserAsync(token);
+        var response = await _mediator.Send(new GetStreamPart.Query(streamPartName));
         return File(response.StreamPart, "audio/MPA", true);
     }
 
@@ -62,8 +63,7 @@ public class FilesController : Controller
         [FromHeader(Name = "Token")] string token, 
         [FromQuery] Guid trackId)
     {
-        var user = await _userService.GetUserAsync(token);
-        await _mediator.Send(new DeleteTrack.Command(user, trackId));
+        await _mediator.Send(new DeleteTrack.Command(token, trackId));
         return Ok();
     }
 }

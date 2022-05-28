@@ -8,7 +8,7 @@ namespace Sonar.Player.Application.Files.Commands;
 
 public static class DeleteTrack
 {
-    public record Command(User User, Guid TrackId) : IRequest<Unit>;
+    public record Command(string Token, Guid TrackId) : IRequest<Unit>;
 
     public class CommandHandler : IRequestHandler<Command, Unit>
     {
@@ -23,16 +23,17 @@ public static class DeleteTrack
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-           var isEnoughAccess = await _userTracksApiClient.IsEnoughAccessAsync(
-                                                                           request.User.Token,
-                                                                           request.User.Id,
-                                                                           cancellationToken);
-           if (!isEnoughAccess)
-               throw new NotEnoughAccessException($"Not enough access to track {request.TrackId}");
+            bool isEnoughAccess = await _userTracksApiClient
+                .IsEnoughAccessAsync(request.Token, request.TrackId, cancellationToken);
 
-           //TODO: call _userTracksApiClient.DeleteAsync
-           await _trackStorage.DeleteTrack(request.TrackId);
-           return Unit.Value;
+            if (!isEnoughAccess)
+            {
+                throw new NotEnoughAccessException($"Not enough access to track {request.TrackId}");
+            }
+
+            //TODO: call _userTracksApiClient.DeleteAsync
+            await _trackStorage.DeleteTrack(request.TrackId);
+            return Unit.Value;
         }
     }
 }
