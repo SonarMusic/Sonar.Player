@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Sonar.Player.Api.Bootstrappers;
+using Sonar.Player.Api.Bootstraps;
 using Sonar.Player.Application.Services;
 using Sonar.Player.Application.Services.TracksStorage;
 using Sonar.Player.Application.Tools;

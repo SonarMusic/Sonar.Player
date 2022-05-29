@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.OpenApi.Models;
 
-namespace Sonar.Player.Api.Bootstrappers;
+namespace Sonar.Player.Api.Bootstraps;
 
 public static class SwaggerConfigurator
 {
