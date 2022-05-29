@@ -23,13 +23,12 @@ builder.Services.AddSwaggerWithCustomAuthorization();
 builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlite("Filename=player.db"));
 
 builder.Services.AddMediatR(typeof(Sonar.Player.Application.IAssemblyMarker));
-
-builder.Services.AddScoped<IUserService, FakeUserService>();
-builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
-
 builder.Services.AddScoped<ITrackStorage, LocalTrackStorage>();
 builder.Services.Decorate<ITrackStorage, HlsTrackProcessor>();
 builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
+
+builder.Services.AddScoped<IUserService, FakeUserService>();
+builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
 
 var app = builder.Build();
 
