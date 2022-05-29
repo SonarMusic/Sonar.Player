@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Sonar.Player.Application.Services.TracksStorage;
 using Sonar.Player.Application.Tools.Exceptions;
-using Sonar.Player.Domain.Models;
 using Sonar.UserTracksManagement.ApiClient;
 
 namespace Sonar.Player.Application.Files.Commands;

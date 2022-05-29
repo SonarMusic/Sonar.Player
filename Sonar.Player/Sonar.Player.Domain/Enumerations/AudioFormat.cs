@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Sonar.Player.Domain.Tools;
+﻿using Sonar.Player.Domain.Tools;
 using Sonar.Player.Domain.Tools.Exceptions;
 
 namespace Sonar.Player.Domain.Enumerations;
