@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Sonar.Player.Api.Bootstraps;
+using Sonar.Player.Api.Middlewares;
 using Sonar.Player.Application.Services;
 using Sonar.Player.Application.Services.TracksStorage;
 using Sonar.Player.Application.Tools;
@@ -31,6 +32,9 @@ builder.Services.AddScoped<IUserService, FakeUserService>();
 builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
 
 var app = builder.Build();
+
+app.UseMiddleware<DefaultExceptionMiddleware>();
+app.UseMiddleware<ApplicationExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
