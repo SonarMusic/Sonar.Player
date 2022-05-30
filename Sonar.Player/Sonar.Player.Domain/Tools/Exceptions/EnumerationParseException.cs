@@ -1,7 +1,7 @@
 ﻿namespace Sonar.Player.Domain.Tools.Exceptions;
 
-public class EnumerationParseException<T> : SonarPlayerException
+public class EnumerationParseException : SonarPlayerException
 {
-    public EnumerationParseException(string typeName, T value)
+    public EnumerationParseException(string typeName, string value)
         : base($"Can't parse {typeName} from {value}") { }
 }

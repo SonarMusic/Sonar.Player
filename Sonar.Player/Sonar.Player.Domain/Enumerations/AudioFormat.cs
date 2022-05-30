@@ -8,7 +8,7 @@ public class AudioFormat : Enumeration<string, AudioFormat>
     protected AudioFormat(string name, string format) 
         : base(name, format) { }
 
-    protected AudioFormat() : base() {}
+    protected AudioFormat() {}
     
     public static AudioFormat Mp3 => new AudioFormat("Mp3", "mp3");
     public static AudioFormat Wav => new AudioFormat("Wav", "wav");
@@ -20,7 +20,7 @@ public class AudioFormat : Enumeration<string, AudioFormat>
         {
             ".mp3" => Mp3,
             ".wav" => Wav,
-            _ => throw new EnumerationParseException<string>(nameof(AudioFormat), filename)
+            _ => throw new EnumerationParseException(nameof(AudioFormat), filename)
         };
     }
 }
