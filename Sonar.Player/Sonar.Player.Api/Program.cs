@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console());
 
-builder.Services.AddControllers(options => { options.Filters.Add<ExceptionFilter>(); });
+builder.Services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
 
 builder.Services.AddEndpointsApiExplorer();
