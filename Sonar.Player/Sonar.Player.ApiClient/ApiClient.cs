@@ -22,21 +22,21 @@ namespace Sonar.Player.ApiClient
     {
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name);
+        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, FileParameter file);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, FileParameter file, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId);
+        System.Threading.Tasks.Task TrackDELETEAsync(string token, System.Guid? trackId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -95,23 +95,18 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name)
+        public virtual System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, FileParameter file)
         {
-            return TrackPOSTAsync(token, name, System.Threading.CancellationToken.None);
+            return TrackPOSTAsync(token, name, file, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<UploadTrack_Response> TrackPOSTAsync(string token, string name, FileParameter file, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/track?");
-            if (name != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            urlBuilder_.Length--;
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/track");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -122,7 +117,28 @@ namespace Sonar.Player.ApiClient
 
                     if (token != null)
                         request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "text/plain");
+                    var boundary_ = System.Guid.NewGuid().ToString();
+                    var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);
+                    content_.Headers.Remove("Content-Type");
+                    content_.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary_);
+
+                    if (name == null)
+                        throw new System.ArgumentNullException("name");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture)), "Name");
+                    }
+
+                    if (file == null)
+                        throw new System.ArgumentNullException("file");
+                    else
+                    {
+                        var content_file_ = new System.Net.Http.StreamContent(file.Data);
+                        if (!string.IsNullOrEmpty(file.ContentType))
+                            content_file_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(file.ContentType);
+                        content_.Add(content_file_, "File", file.FileName ?? "File");
+                    }
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -178,7 +194,7 @@ namespace Sonar.Player.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId)
+        public virtual System.Threading.Tasks.Task TrackDELETEAsync(string token, System.Guid? trackId)
         {
             return TrackDELETEAsync(token, trackId, System.Threading.CancellationToken.None);
         }
@@ -186,7 +202,7 @@ namespace Sonar.Player.ApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<DeleteTrack_Response> TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TrackDELETEAsync(string token, System.Guid? trackId, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/files/track?");
@@ -206,7 +222,6 @@ namespace Sonar.Player.ApiClient
                     if (token != null)
                         request_.Headers.TryAddWithoutValidation("Token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -231,12 +246,7 @@ namespace Sonar.Player.ApiClient
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<DeleteTrack_Response>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         {
@@ -1007,14 +1017,10 @@ namespace Sonar.Player.ApiClient
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.0.0 (NJsonSchema v10.7.1.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class DeleteTrack_Response
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.0.0 (NJsonSchema v10.7.1.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UploadTrack_Response
     {
+        [Newtonsoft.Json.JsonProperty("trackId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid TrackId { get; set; }
 
     }
 
@@ -1034,6 +1040,33 @@ namespace Sonar.Player.ApiClient
     public partial class GetQueue_Response
     {
 
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.16.0.0 (NJsonSchema v10.7.1.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class FileParameter
+    {
+        public FileParameter(System.IO.Stream data)
+            : this (data, null, null)
+        {
+        }
+
+        public FileParameter(System.IO.Stream data, string fileName)
+            : this (data, fileName, null)
+        {
+        }
+
+        public FileParameter(System.IO.Stream data, string fileName, string contentType)
+        {
+            Data = data;
+            FileName = fileName;
+            ContentType = contentType;
+        }
+
+        public System.IO.Stream Data { get; private set; }
+
+        public string FileName { get; private set; }
+
+        public string ContentType { get; private set; }
     }
 
 
