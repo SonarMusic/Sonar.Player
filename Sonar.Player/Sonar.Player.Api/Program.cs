@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Sonar.Player.Api.Bootstraps;
+using Sonar.Player.Api.Filters;
 using Sonar.Player.Application.Services;
 using Sonar.Player.Application.Services.TracksStorage;
 using Sonar.Player.Application.Tools;
@@ -14,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console());
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
 builder.Services.Configure<RouteOptions>(opt => opt.LowercaseUrls = true);
 
 builder.Services.AddEndpointsApiExplorer();

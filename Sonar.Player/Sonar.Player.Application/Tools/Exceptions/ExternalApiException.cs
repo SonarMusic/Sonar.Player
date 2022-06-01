@@ -1,6 +1,8 @@
-﻿namespace Sonar.Player.Application.Tools.Exceptions;
+﻿using Sonar.Player.Domain.Tools.Exceptions;
 
-public class ExternalApiException : Exception
+namespace Sonar.Player.Application.Tools.Exceptions;
+
+public class ExternalApiException : SonarPlayerException
 {
     public int StatusCode { get; }
 

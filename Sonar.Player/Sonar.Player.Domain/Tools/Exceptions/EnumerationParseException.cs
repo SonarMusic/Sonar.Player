@@ -1,8 +1,7 @@
 ﻿namespace Sonar.Player.Domain.Tools.Exceptions;
 
-//TODO: add base domain exception
-public class EnumerationParseException<T> : Exception
+public class EnumerationParseException : SonarPlayerException
 {
-    public EnumerationParseException(string typeName, T value)
+    public EnumerationParseException(string typeName, string value)
         : base($"Can't parse {typeName} from {value}") { }
 }
