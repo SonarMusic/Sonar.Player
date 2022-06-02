@@ -9,6 +9,7 @@ using Sonar.Player.Application.Tools;
 using Sonar.Player.Data;
 using Sonar.Player.Fakes.ApiClients;
 using Sonar.Player.Fakes.Services;
+using Sonar.UserProfile.ApiClient;
 using Sonar.UserTracksManagement.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,8 +29,11 @@ builder.Services.AddScoped<ITrackStorage, LocalTrackStorage>();
 builder.Services.Decorate<ITrackStorage, HlsTrackProcessor>();
 builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
 
-builder.Services.AddScoped<IUserService, FakeUserService>();
-builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
+builder.Services.AddScoped<HttpClient>();
+builder.Services.AddScoped<IUserService, UserService>();
+// builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
+builder.Services.AddScoped<IUserTracksApiClient, UserTracksApiClient>(f => new UserTracksApiClient("https://localhost:7055", f.GetRequiredService<HttpClient>()));
+builder.Services.AddScoped<IUserApiClient, UserApiClient>(f => new UserApiClient("https://localhost:7062", f.GetRequiredService<HttpClient>()));
 
 var app = builder.Build();
 
