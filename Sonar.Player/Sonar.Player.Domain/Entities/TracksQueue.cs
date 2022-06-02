@@ -6,40 +6,47 @@ public class TracksQueue
 {
     private List<Track> _tracks = new List<Track>();
 
-    public Track? Current = null;
+    public int CurrentNumber = 0;
     public IReadOnlyCollection<Track> Tracks => _tracks.AsReadOnly();
 
     public Track Next()
     {
-        if (Current is null)
+        if (Tracks.Count == 0)
             throw new SonarPlayerException("Cannot get the next track: queue is empty");
+        
+        var next = Tracks.ElementAtOrDefault(CurrentNumber + 1);
+        if (next is null)
+            throw new SonarPlayerException("Cannot get the next track: this is the last track in queue");
 
-        var next = Tracks.SkipWhile(x => x.Id != Current.Id).Skip(1).DefaultIfEmpty(null).First();
-        Current = next ?? throw new SonarPlayerException("Cannot get the next track: this is the last track in queue");
-        return Current;
+        CurrentNumber++;
+        return next;
     }
 
     public void Enqueue(Track track)
     {
         _tracks.Add(track);
+        if (_tracks.Count == 1)
+            CurrentNumber++;
     }
 
     public Track Previous()
     {
-        if (Current is null)
-            throw new SonarPlayerException("Cannot get the last track: queue is empty");
+        if (Tracks.Count == 0)
+            throw new SonarPlayerException("Cannot get the previous track: queue is empty");
+        
+        var prev = Tracks.ElementAtOrDefault(CurrentNumber - 1);
+        if (prev is null)
+            throw new SonarPlayerException("Cannot get the previous track: this is the first track in queue");
 
-        var prev = Tracks.TakeWhile(x => x.Id != Current.Id).DefaultIfEmpty(null).Last();
-        Current = prev ?? throw new SonarPlayerException("Cannot get the last track: this is the first track in queue");
-        return Current;
+        CurrentNumber--;
+        return prev;
     }
 
     public void Shuffle()
     {
         var rand = new Random();
         var newTracks = _tracks.OrderBy(x => rand.Next()).ToList();
-        for (var i = 0; i < _tracks.Count; i++)
-            _tracks[i] = newTracks[i];
+        _tracks = newTracks;
     }
 
     public void Purge()
