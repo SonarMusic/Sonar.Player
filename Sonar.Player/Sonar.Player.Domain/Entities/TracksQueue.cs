@@ -1,33 +1,54 @@
-﻿namespace Sonar.Player.Domain.Entities;
+﻿using Sonar.Player.Domain.Tools.Exceptions;
+
+namespace Sonar.Player.Domain.Entities;
 
 public class TracksQueue
 {
-    private readonly List<Track> _tracks = new List<Track>();
+    private List<Track> _tracks = new List<Track>();
 
+    public int CurrentNumber = 0;
     public IReadOnlyCollection<Track> Tracks => _tracks.AsReadOnly();
 
     public Track Next()
     {
-        throw new NotImplementedException();
+        if (Tracks.Count == 0)
+            throw new SonarPlayerException("Cannot get the next track: queue is empty");
+        
+        var next = Tracks.ElementAtOrDefault(CurrentNumber + 1);
+        if (next is null)
+            throw new SonarPlayerException("Cannot get the next track: this is the last track in queue");
+
+        CurrentNumber++;
+        return next;
     }
 
     public void Enqueue(Track track)
     {
-        throw new NotImplementedException();
+        _tracks.Add(track);
     }
 
     public Track Previous()
     {
-        throw new NotImplementedException();
+        if (Tracks.Count == 0)
+            throw new SonarPlayerException("Cannot get the previous track: queue is empty");
+        
+        var prev = Tracks.ElementAtOrDefault(CurrentNumber - 1);
+        if (prev is null)
+            throw new SonarPlayerException("Cannot get the previous track: this is the first track in queue");
+
+        CurrentNumber--;
+        return prev;
     }
 
     public void Shuffle()
     {
-        throw new NotImplementedException();
+        var rand = new Random();
+        var newTracks = _tracks.OrderBy(x => rand.Next()).ToList();
+        _tracks = newTracks;
     }
 
     public void Purge()
     {
-        throw new NotImplementedException();
+        _tracks.Clear();
     }
 }
