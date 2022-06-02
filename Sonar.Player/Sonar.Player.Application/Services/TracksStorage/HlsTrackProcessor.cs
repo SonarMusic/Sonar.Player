@@ -32,7 +32,7 @@ public class HlsTrackProcessor : ITrackStorage
 
         var arguments = FfmpegArgumentsBuilder.CreateBuilder()
                                               .GetSource(trackPath)
-                                              .SetBitrate(4800)
+                                              .SetBitrate(324)
                                               .SetSegmentFilename(segmentPath)
                                               .WriteTo(infoFilePath)
                                               .Build();

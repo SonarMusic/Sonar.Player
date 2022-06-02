@@ -24,7 +24,7 @@ public class FfmpegArgumentsBuilder : ISourceSelectionStage, IBitrateSelectionSt
 
     public ISegmentSelectionStage SetBitrate(int bitrate)
     {
-        _builder.Append($" -bitrate {bitrate}");
+        _builder.Append($" -b:a {bitrate}k");
         return this;
     }
 
@@ -36,7 +36,7 @@ public class FfmpegArgumentsBuilder : ISourceSelectionStage, IBitrateSelectionSt
 
     public IBuildStage WriteTo(string filename)
     {
-        _builder.Append($" {filename}");
+        _builder.Append($" -map a {filename}");
         return this;
     }
 
