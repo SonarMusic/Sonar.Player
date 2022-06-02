@@ -4,43 +4,71 @@ namespace Sonar.Player.Fakes.ApiClients;
 
 public class FakeUserTracksClient : IUserTracksApiClient
 {
+    private readonly List<TrackDto> _tracks = new List<TrackDto>();
+
     public Task<Guid> TracksPOSTAsync(string token, string name)
     {
-        return Task.FromResult(Guid.NewGuid());
+        return TracksPOSTAsync(token, name, CancellationToken.None);
     }
 
     public Task<Guid> TracksPOSTAsync(string token, string name, CancellationToken cancellationToken)
     {
-        return Task.FromResult(Guid.NewGuid());
+        var tdto = new TrackDto()
+        {
+            Name = name,
+            Id = Guid.NewGuid()
+        };
+        _tracks.Add(tdto);
+        return Task.FromResult(tdto.Id);
     }
 
     public Task<TrackDto> TracksGETAsync(string token, Guid? trackId)
     {
-        throw new NotImplementedException();
+        return TracksGETAsync(token, trackId);
     }
 
     public Task<TrackDto> TracksGETAsync(string token, Guid? trackId, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(_tracks.First(t => t.Id == trackId));
+    }
+
+    public Task TracksDELETEAsync(string token, Guid? trackId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task TracksDELETEAsync(string token, Guid? trackId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<TrackDto>> All2Async(string token)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<TrackDto>> All2Async(string token, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
     public Task<ICollection<TrackDto>> AllAsync(string token)
     {
-        throw new NotImplementedException();
+        return AllAsync(token, CancellationToken.None);
     }
 
     public Task<ICollection<TrackDto>> AllAsync(string token, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Task.FromResult<ICollection<TrackDto>>(_tracks.ToList());
     }
 
     public Task<bool> IsEnoughAccessAsync(string token, Guid? trackId)
     {
-        throw new NotImplementedException();
+        return IsEnoughAccessAsync(token, trackId, CancellationToken.None);
     }
 
     public Task<bool> IsEnoughAccessAsync(string token, Guid? trackId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(true);
     }
 }
