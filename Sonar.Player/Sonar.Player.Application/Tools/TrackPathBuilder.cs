@@ -20,7 +20,7 @@ public class TrackPathBuilder : ITrackPathBuilder
 
     public string GetTrackStreamPartPath(string partName)
     {
-        var trackId = partName.Split("-").First();
+        var trackId = partName.Split("_").First();
         return Path.Combine(GetTrackFolderPath(Guid.Parse(trackId)), "stream", partName);
     }
 }

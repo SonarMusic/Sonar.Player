@@ -26,7 +26,7 @@ public class HlsTrackProcessor : ITrackStorage
         if (!Directory.Exists(streamFolderPath))
             Directory.CreateDirectory(streamFolderPath);
 
-        var segmentFilename = $"{track.Id}-stream-%02d.ts";
+        var segmentFilename = $"{track.Id}_stream-%02d.ts";
         var segmentPath = Path.Combine(streamFolderPath, segmentFilename);
         var infoFilePath = Path.Combine(streamFolderPath, "streamInfo.m3u8");
 
