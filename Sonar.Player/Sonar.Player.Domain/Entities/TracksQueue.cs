@@ -25,8 +25,6 @@ public class TracksQueue
     public void Enqueue(Track track)
     {
         _tracks.Add(track);
-        if (_tracks.Count == 1)
-            CurrentNumber++;
     }
 
     public Track Previous()
