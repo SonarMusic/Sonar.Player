@@ -30,7 +30,7 @@ public static class DeleteTrack
                 throw new NotEnoughAccessException($"Not enough access to track {request.TrackId}");
             }
 
-            //TODO: call _userTracksApiClient.DeleteAsync
+            await _userTracksApiClient.TracksDELETEAsync(request.Token, request.TrackId, cancellationToken);
             await _trackStorage.DeleteTrack(request.TrackId);
             return Unit.Value;
         }
