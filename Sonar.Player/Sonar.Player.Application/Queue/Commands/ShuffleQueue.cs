@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using MediatR;
+using Sonar.Player.Application.Tools;
 using Sonar.Player.Application.Tools.Exceptions;
 using Sonar.Player.Data;
 using Sonar.Player.Domain.Entities;
@@ -23,15 +24,9 @@ public static class ShuffleQueue
         }
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            var context = _dbContext.Contexts.FirstOrDefault(x => x.User.Id == request.User.Id);
-            if (context is null)
-                throw new NotFoundException("Queue of this user is not found in database");
-
-            var queue = context.Queue;
+            var queue = _dbContext.Contexts.GetOrCreateContext(request.User);
             queue.Shuffle();
-            _dbContext.Remove(context);
-            await _dbContext.Contexts.AddAsync(new UserPlayerContext(request.User, queue), cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            _dbContext.Contexts.Update(new UserPlayerContext(request.User, queue));
             return new Response(queue);
         }
     }

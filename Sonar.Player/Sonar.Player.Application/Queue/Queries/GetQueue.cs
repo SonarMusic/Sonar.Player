@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Sonar.Player.Application.Tools;
 using Sonar.Player.Application.Tools.Exceptions;
 using Sonar.Player.Data;
 using Sonar.Player.Domain.Entities;
@@ -22,11 +23,7 @@ public static class GetQueue
         }
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
-            var context = _dbContext.Contexts.FirstOrDefault(x => x.User.Id == request.User.Id);
-            if (context is null)
-                throw new NotFoundException("Queue of this user is not found in database");
-
-            var queue = context.Queue;
+            var queue = _dbContext.Contexts.GetOrCreateContext(request.User);
             return new Response(queue);
         }
     }
