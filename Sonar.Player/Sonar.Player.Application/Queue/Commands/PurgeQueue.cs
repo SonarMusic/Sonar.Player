@@ -23,10 +23,10 @@ public static class PurgeQueue
         }
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            var queue = _dbContext.Contexts.GetOrCreateContext(request.User);
-            queue.Purge();
-            _dbContext.Contexts.Update(new UserPlayerContext(request.User, queue));
-            return new Response(queue);
+            var context = _dbContext.Contexts.GetOrCreateContext(request.User);
+            context.Queue.Purge();
+            _dbContext.Contexts.Update(context);
+            return new Response(context.Queue);
         }
     }
 }

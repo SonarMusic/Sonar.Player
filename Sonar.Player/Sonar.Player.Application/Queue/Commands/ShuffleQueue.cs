@@ -24,10 +24,10 @@ public static class ShuffleQueue
         }
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            var queue = _dbContext.Contexts.GetOrCreateContext(request.User);
-            queue.Shuffle();
-            _dbContext.Contexts.Update(new UserPlayerContext(request.User, queue));
-            return new Response(queue);
+            var context = _dbContext.Contexts.GetOrCreateContext(request.User);
+            context.Queue.Shuffle();
+            _dbContext.Contexts.Update(context);
+            return new Response(context.Queue);
         }
     }
 }

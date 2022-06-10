@@ -24,13 +24,13 @@ public static class AddTrackToQueue
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var track = _dbContext.Tracks.FirstOrDefault(x => x.Id == request.TrackId);
-            var queue = _dbContext.Contexts.GetOrCreateContext(request.User);
+            var context = _dbContext.Contexts.GetOrCreateContext(request.User);
 
             if (track is null)
-                throw new TrackNotFoundException("Track is not found in database");
+                throw new TrackNotFoundException($"Track {request.TrackId} is not found in database");
             
-            queue.Enqueue(track);
-            _dbContext.Contexts.Update(new UserPlayerContext(request.User, queue));
+            context.Queue.Enqueue(track);
+            _dbContext.Contexts.Update(context);
             return new Response(request.TrackId);
         }
     }

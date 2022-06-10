@@ -23,8 +23,8 @@ public static class GetQueue
         }
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
-            var queue = _dbContext.Contexts.GetOrCreateContext(request.User);
-            return new Response(queue);
+            var context = _dbContext.Contexts.GetOrCreateContext(request.User);
+            return new Response(context.Queue);
         }
     }
 }
