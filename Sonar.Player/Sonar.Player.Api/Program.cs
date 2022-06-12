@@ -26,6 +26,7 @@ builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlite("Filename=pl
 
 builder.Services.AddMediatR(typeof(Sonar.Player.Application.IAssemblyMarker));
 builder.Services.AddScoped<ITrackStorage, LocalTrackStorage>();
+builder.Services.Decorate<ITrackStorage, TrackConverter>();
 builder.Services.Decorate<ITrackStorage, HlsTrackProcessor>();
 builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
 
