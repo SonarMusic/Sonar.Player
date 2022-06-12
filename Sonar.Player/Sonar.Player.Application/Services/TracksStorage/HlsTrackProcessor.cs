@@ -16,7 +16,7 @@ public class HlsTrackProcessor : ITrackStorage
         _pathBuilder = pathBuilder;
     }
 
-    public async Task<Track> SaveTrack(Guid id, AudioFormat format, Stream content)
+    public async Task<Track> SaveTrack(Guid id, MediaFormat format, Stream content)
     {
         var track = await _decorated.SaveTrack(id, format, content);
 
