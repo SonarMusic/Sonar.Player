@@ -22,7 +22,7 @@ public class VideoFormat : MediaFormat
             ".mp4" => Mp4,
             ".mov" => Mov,
             ".wmv" => Wmv,
-            _ => throw new EnumerationParseException(nameof(MediaFormat), filename)
+            _ => throw new EnumerationParseException(nameof(VideoFormat), filename)
         };
     }
 }

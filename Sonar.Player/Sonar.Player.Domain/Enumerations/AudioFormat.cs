@@ -20,7 +20,7 @@ public class AudioFormat : MediaFormat
         {
             ".mp3" => Mp3,
             ".wav" => Wav,
-            _ => throw new EnumerationParseException(nameof(MediaFormat), filename)
+            _ => throw new EnumerationParseException(nameof(AudioFormat), filename)
         };
     }
 }
