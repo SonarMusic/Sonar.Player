@@ -28,7 +28,7 @@ public class TrackConverter : ITrackStorage
             await content.CopyToAsync(sourceFileStream);
         }
 
-        var convertedFileName = $"{Guid.NewGuid().ToString()}.mp3";
+        var convertedFileName = $"{Guid.NewGuid()}.mp3";
         var convertedFilePath = Path.Combine(tempDirectory, convertedFileName);
         
         Process process = new()
