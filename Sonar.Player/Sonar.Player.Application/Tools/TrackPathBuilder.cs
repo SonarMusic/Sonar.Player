@@ -1,11 +1,19 @@
-﻿namespace Sonar.Player.Application.Tools;
+﻿using Microsoft.Extensions.Options;
+
+namespace Sonar.Player.Application.Tools;
 
 public class TrackPathBuilder : ITrackPathBuilder
 {
+    private readonly string _basePath;
+    
+    public TrackPathBuilder(IOptions<TrackPathBuilderConfiguration> options)
+    {
+        _basePath = options.Value.BasePath;
+    }
+    
     public string GetTrackFolderPath(Guid trackId)
     {
-        //TODO: move base directory configuration to appsettings
-        return Path.Combine(Directory.GetCurrentDirectory(), "tracks", trackId.ToString());
+        return Path.Combine(_basePath, trackId.ToString());
     }
 
     public string GetTrackStreamFolderPath(Guid trackId)
