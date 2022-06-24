@@ -12,7 +12,7 @@ public static class ShuffleQueue
 {
     public record Command(User User) : IRequest<Response>;
 
-    public record Response(TracksQueue Queue);
+    public record Response(List<Guid> TracksId);
 
     public class CommandHandler : IRequestHandler<Command, Response>
     {
@@ -27,7 +27,14 @@ public static class ShuffleQueue
             var context = _dbContext.Contexts.GetOrCreateContext(request.User);
             context.Queue.Shuffle();
             _dbContext.Contexts.Update(context);
-            return new Response(context.Queue);
+            var current = context.Queue.CurrentNumber;
+            var currentId = context.Queue.Tracks.ElementAt(current).Id;
+            var newList = context.Queue.Tracks
+                .SkipWhile(x => x.Id != currentId)
+                .Select(x => x.Id)
+                .ToList();
+            
+            return new Response(newList);
         }
     }
 }

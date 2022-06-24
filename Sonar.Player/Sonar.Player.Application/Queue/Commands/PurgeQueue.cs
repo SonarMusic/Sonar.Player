@@ -11,7 +11,7 @@ public static class PurgeQueue
 {
     public record Command(User User) : IRequest<Response>;
 
-    public record Response(TracksQueue Queue);
+    public record Response();
 
     public class CommandHandler : IRequestHandler<Command, Response>
     {
@@ -21,12 +21,13 @@ public static class PurgeQueue
         {
             _dbContext = dbContext;
         }
+        
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var context = _dbContext.Contexts.GetOrCreateContext(request.User);
             context.Queue.Purge();
             _dbContext.Contexts.Update(context);
-            return new Response(context.Queue);
+            return new Response();
         }
     }
 }

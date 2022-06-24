@@ -11,7 +11,7 @@ public static class AddTrackToQueue
 {
     public record Command(User User, Guid TrackId) : IRequest<Response>;
 
-    public record Response(Guid TrackId);
+    public record Response();
 
     public class CommandHandler : IRequestHandler<Command, Response>
     {
@@ -31,7 +31,7 @@ public static class AddTrackToQueue
             
             context.Queue.Enqueue(track);
             _dbContext.Contexts.Update(context);
-            return new Response(request.TrackId);
+            return new Response();
         }
     }
 }

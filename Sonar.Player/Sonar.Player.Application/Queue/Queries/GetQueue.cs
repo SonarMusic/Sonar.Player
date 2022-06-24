@@ -11,7 +11,7 @@ public static class GetQueue
 {
     public record Query(User User) : IRequest<Response>;
 
-    public record Response(TracksQueue Queue);
+    public record Response(List<Guid> TracksId);
 
     public class QueryHandler : IRequestHandler<Query, Response>
     {
@@ -24,7 +24,14 @@ public static class GetQueue
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
             var context = _dbContext.Contexts.GetOrCreateContext(request.User);
-            return new Response(context.Queue);
+            var current = context.Queue.CurrentNumber;
+            var currentId = context.Queue.Tracks.ElementAt(current).Id;
+            var newList = context.Queue.Tracks
+                .SkipWhile(x => x.Id != currentId)
+                .Select(x => x.Id)
+                .ToList();
+            
+            return new Response(newList);
         }
     }
 }
