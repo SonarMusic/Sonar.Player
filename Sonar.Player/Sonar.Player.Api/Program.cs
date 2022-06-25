@@ -10,6 +10,7 @@ using Sonar.Player.Data;
 using Sonar.Player.Fakes.ApiClients;
 using Sonar.Player.Fakes.Services;
 using Sonar.UserProfile.ApiClient;
+using Sonar.UserProfile.ApiClient.Interfaces;
 using Sonar.UserTracksManagement.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);

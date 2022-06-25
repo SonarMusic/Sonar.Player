@@ -20,9 +20,14 @@ public class ImportController : Controller
     }
 
     [HttpPost("youtube")]
-    public async Task<ActionResult<ImportFromYoutubeCommand.Response>> ImportFromYoutube([FromHeader(Name = "Token")] string token, [FromBody] YoutubeTrackInfoDto trackInfo)
+    public async Task<ActionResult<ImportFromYoutubeCommand.Response>> ImportFromYoutube(
+        [FromHeader(Name = "Token")] string token,
+        [FromBody] YoutubeTrackInfoDto trackInfo,
+        CancellationToken cancellationToken)
     {
-        var user = await _userService.GetUserAsync(token);
-        return await _mediator.Send(new ImportFromYoutubeCommand.Command(user, trackInfo.Url, trackInfo.Name));
+        var user = await _userService.GetUserAsync(token, cancellationToken);
+        return await _mediator.Send(
+            new ImportFromYoutubeCommand.Command(user, trackInfo.Url, trackInfo.Name),
+            cancellationToken);
     }
 }
