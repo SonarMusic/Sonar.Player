@@ -23,6 +23,7 @@ public static class AddPlaylistToQueue
             _playlistApiClient = playlistApiClient;
             _dbContext = dbContext;
         }
+        
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
             Playlist playlist;

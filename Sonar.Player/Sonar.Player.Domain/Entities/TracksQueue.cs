@@ -31,6 +31,7 @@ public class TracksQueue
     {
         _tracks.AddRange(tracksList);
     }
+    
     public Track Previous()
     {
         if (Tracks.Count == 0)
