@@ -24,7 +24,7 @@ public static class ShuffleQueue
         }
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            var context = _dbContext.Contexts.GetOrCreateContext(request.User);
+            var context = await _dbContext.Contexts.GetOrCreateContext(request.User);
             context.Queue.Shuffle();
             _dbContext.Contexts.Update(context);
             var current = context.Queue.CurrentNumber;
