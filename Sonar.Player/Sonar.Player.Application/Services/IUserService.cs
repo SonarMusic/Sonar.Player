@@ -4,5 +4,5 @@ namespace Sonar.Player.Application.Services;
 
 public interface IUserService
 {
-    Task<User> GetUserAsync(string token);
+    Task<User> GetUserAsync(string token, CancellationToken cancellationToken);
 }
