@@ -9,6 +9,6 @@ public class TrackConfiguration : IEntityTypeConfiguration<Track>
 {
     public void Configure(EntityTypeBuilder<Track> builder)
     {
-        builder.OwnsOne<MediaFormat>(f => f.Format);
+        builder.OwnsOne<AudioFormat>(f => f.Format);
     }
 }

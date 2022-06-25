@@ -1,14 +1,14 @@
-﻿using Sonar.Player.Domain.Tools.Exceptions;
+﻿using Sonar.Player.Domain.Tools;
+using Sonar.Player.Domain.Tools.Exceptions;
 
 namespace Sonar.Player.Domain.Enumerations;
 
-public class AudioFormat : MediaFormat
+public class AudioFormat : Enumeration<string, AudioFormat>
 {
-    protected AudioFormat()
-    { }
-    
-    protected AudioFormat(string name, string format)
+    protected AudioFormat(string name, string format) 
         : base(name, format) { }
+
+    protected AudioFormat() {}
     
     public static AudioFormat Mp3 => new AudioFormat("Mp3", "mp3");
     public static AudioFormat Wav => new AudioFormat("Wav", "wav");

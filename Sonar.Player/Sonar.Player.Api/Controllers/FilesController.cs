@@ -23,10 +23,9 @@ public class FilesController : Controller
     [HttpPost("track")]
     public async Task<ActionResult<UploadTrack.Response>> UploadTrackAsync(
         [FromHeader(Name = "Token")] string token,
-        [FromForm] TrackFormDto form,
-        CancellationToken cancellationToken)
+        [FromForm] TrackFormDto form)
     {
-        var user = await _userService.GetUserAsync(token, cancellationToken);
+        var user = await _userService.GetUserAsync(token);
         await using var fileStream = form.File.OpenReadStream();
         
         return Ok(
@@ -37,37 +36,34 @@ public class FilesController : Controller
                     new UploadTrack.Command.TrackFile(
                         form.File.FileName, 
                         fileStream)
-                    ), cancellationToken));
+                    )));
     }
 
     [HttpGet("track-stream-info")]
     public async Task<IActionResult> GetTrackStreamInfoAsync(
         [FromHeader(Name = "Token")] string token,
-        [FromQuery(Name = "id")] Guid trackId, 
-        CancellationToken cancellationToken)
+        [FromQuery(Name = "id")] Guid trackId)
     {
-        var response = await _mediator.Send(new GetTrackStreamInfo.Query(token, trackId), cancellationToken);
+        var response = await _mediator.Send(new GetTrackStreamInfo.Query(token, trackId));
         return File(response.TrackInfoStream, "application/x-mpegURL", true);
     }
 
     [HttpGet("{streamPartName}")]
     public async Task<IActionResult> GetStreamPartAsync(
         [FromHeader(Name = "Token")] string token,
-        [FromRoute] string streamPartName,
-        CancellationToken cancellationToken)
+        [FromRoute] string streamPartName)
     {
-        var user = await _userService.GetUserAsync(token, cancellationToken);
-        var response = await _mediator.Send(new GetStreamPart.Query(streamPartName), cancellationToken);
+        var user = await _userService.GetUserAsync(token);
+        var response = await _mediator.Send(new GetStreamPart.Query(streamPartName));
         return File(response.StreamPart, "audio/MPA", true);
     }
 
     [HttpDelete("track")]
     public async Task<IActionResult> DeleteTrackAsync(
         [FromHeader(Name = "Token")] string token, 
-        [FromQuery] Guid trackId,
-        CancellationToken cancellationToken)
+        [FromQuery] Guid trackId)
     {
-        await _mediator.Send(new DeleteTrack.Command(token, trackId), cancellationToken);
+        await _mediator.Send(new DeleteTrack.Command(token, trackId));
         return Ok();
     }
 }
