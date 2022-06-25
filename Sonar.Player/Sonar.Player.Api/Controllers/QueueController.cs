@@ -29,7 +29,7 @@ public class QueueController : Controller
     }
 
     [HttpPatch("track")]
-    public async Task<ActionResult<AddTrackToQueue.Response>> AddTrackToQueueAsync(
+    public async Task<ActionResult> AddTrackToQueueAsync(
         [FromHeader(Name = "Token")] string token,
         [FromQuery] Guid trackId, CancellationToken cancellationToken = default)
     {
@@ -38,7 +38,7 @@ public class QueueController : Controller
     }
 
     [HttpDelete]
-    public async Task<ActionResult<PurgeQueue.Response>> PurgeQueueAsync(
+    public async Task<IActionResult> PurgeQueueAsync(
         [FromHeader(Name = "Token")] string token,
         CancellationToken cancellationToken = default)
     {
