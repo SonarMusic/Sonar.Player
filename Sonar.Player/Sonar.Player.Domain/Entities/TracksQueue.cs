@@ -27,6 +27,11 @@ public class TracksQueue
         _tracks.Add(track);
     }
 
+    public void EnqueuePlaylistTracks(List<Track> tracksList)
+    {
+        _tracks.AddRange(tracksList);
+    }
+    
     public Track Previous()
     {
         if (Tracks.Count == 0)

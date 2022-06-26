@@ -6,6 +6,8 @@ namespace Sonar.Player.Data;
 public class PlayerDbContext : DbContext
 {
     public DbSet<Track> Tracks { get; set; }
+    
+    public DbSet<UserPlayerContext> Contexts { get; set; }
 
     public PlayerDbContext(DbContextOptions<PlayerDbContext> options)
         : base(options)
