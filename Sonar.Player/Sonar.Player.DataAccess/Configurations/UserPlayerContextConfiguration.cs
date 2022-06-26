@@ -10,5 +10,6 @@ public class UserPlayerContextConfiguration : IEntityTypeConfiguration<UserPlaye
     {
         builder.HasKey(upc => upc.UserId);
         builder.HasOne(upc => upc.Queue);
+        builder.Navigation(upc => upc.Queue).AutoInclude();
     }
 }
