@@ -8,6 +8,7 @@ public class UserPlayerContextConfiguration : IEntityTypeConfiguration<UserPlaye
 {
     public void Configure(EntityTypeBuilder<UserPlayerContext> builder)
     {
-        builder.HasKey(x => x.User.Id);
+        builder.HasKey(upc => upc.UserId);
+        builder.HasOne(upc => upc.Queue);
     }
 }

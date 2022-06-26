@@ -4,13 +4,13 @@ namespace Sonar.Player.Domain.Entities;
 
 public class UserPlayerContext
 {
-    public User User { get; private init; }
+    public Guid UserId { get; private init; }
     public TracksQueue Queue { get; private init; }
     
     private UserPlayerContext() { }
-    public UserPlayerContext(User user, TracksQueue queue)
+    public UserPlayerContext(Guid userId, TracksQueue queue)
     {
-        User = user;
+        UserId = userId;
         Queue = queue;
     }
 }

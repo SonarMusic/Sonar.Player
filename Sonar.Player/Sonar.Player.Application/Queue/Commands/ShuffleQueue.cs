@@ -28,7 +28,7 @@ public static class ShuffleQueue
             context.Queue.Shuffle();
             _dbContext.Contexts.Update(context);
             var current = context.Queue.CurrentNumber;
-            var currentId = context.Queue.Tracks.ElementAt(current).Id;
+            var currentId = context.Queue.Tracks.ElementAt((Index)current).Id;
             var newList = context.Queue.Tracks
                 .SkipWhile(x => x.Id != currentId)
                 .Select(x => x.Id)

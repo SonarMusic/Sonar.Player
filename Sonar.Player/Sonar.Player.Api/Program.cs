@@ -35,6 +35,7 @@ builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IUserService, UserService>();
 // builder.Services.AddScoped<IUserTracksApiClient, FakeUserTracksClient>();
 builder.Services.AddScoped<IUserTracksApiClient, UserTracksApiClient>(f => new UserTracksApiClient("https://localhost:7055", f.GetRequiredService<HttpClient>()));
+builder.Services.AddScoped<IPlaylistApiClient, PlaylistApiClient>(f => new PlaylistApiClient("https://localhost:7055", f.GetRequiredService<HttpClient>()));
 builder.Services.AddScoped<IUserApiClient, UserApiClient>(f => new UserApiClient("https://localhost:7062", f.GetRequiredService<HttpClient>()));
 
 var app = builder.Build();
