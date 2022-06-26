@@ -10,11 +10,9 @@ namespace Sonar.Player.Application.Queue.Commands;
 
 public static class ShuffleQueue
 {
-    public record Command(User User) : IRequest<Response>;
+    public record Command(User User) : IRequest<Unit>;
 
-    public record Response(List<Guid> TracksId);
-
-    public class CommandHandler : IRequestHandler<Command, Response>
+    public class CommandHandler : IRequestHandler<Command, Unit>
     {
         private readonly PlayerDbContext _dbContext;
 
@@ -22,19 +20,14 @@ public static class ShuffleQueue
         {
             _dbContext = dbContext;
         }
-        public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var context = await _dbContext.Contexts.GetOrCreateContext(request.User);
+            var context = await _dbContext.GetOrCreateContext(request.User);
             context.Queue.Shuffle();
-            _dbContext.Contexts.Update(context);
-            var current = context.Queue.CurrentNumber;
-            var currentId = context.Queue.Tracks.ElementAt((Index)current).Id;
-            var newList = context.Queue.Tracks
-                .SkipWhile(x => x.Id != currentId)
-                .Select(x => x.Id)
-                .ToList();
-            
-            return new Response(newList);
+            _dbContext.Update(context.Queue);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return Unit.Value;
         }
     }
 }

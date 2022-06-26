@@ -22,9 +22,10 @@ public static class PurgeQueue
         
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var context = await _dbContext.Contexts.GetOrCreateContext(request.User);
+            var context = await _dbContext.GetOrCreateContext(request.User);
             context.Queue.Purge();
-            _dbContext.Contexts.Update(context);
+            _dbContext.Update(context.Queue);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
     }
