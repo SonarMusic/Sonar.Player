@@ -41,7 +41,7 @@ builder.Services.AddScoped<IUserTracksApiClient, UserTracksApiClient>(f => new U
         .GetRequiredSection("UserTracksManagement").Value, f.GetRequiredService<HttpClient>()));
 builder.Services.AddScoped<IPlaylistApiClient, PlaylistApiClient>(f => new PlaylistApiClient(
     builder.Configuration.GetRequiredSection("ConnectionStrings")
-        .GetRequiredSection("PlaylistManagement").Value, f.GetRequiredService<HttpClient>()));
+        .GetRequiredSection("PlaylistsManagement").Value, f.GetRequiredService<HttpClient>()));
 builder.Services.AddScoped<IUserApiClient, UserApiClient>(f => new UserApiClient(
     builder.Configuration.GetRequiredSection("ConnectionStrings")
         .GetRequiredSection("UserProfile").Value, f.GetRequiredService<HttpClient>()));
