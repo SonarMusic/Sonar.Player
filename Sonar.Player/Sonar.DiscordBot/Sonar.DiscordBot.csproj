@@ -8,8 +8,15 @@
 
     <ItemGroup>
       <PackageReference Include="Discord.Net" Version="3.7.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.6" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Sonar.UserProfile\Sonar.UserProfile.ApiClient\Sonar.UserProfile.ApiClient.csproj" />
+      <ProjectReference Include="..\..\Sonar.UserTracksManagment\Sonar.UserTracksManagement\Sonar.UserTracksManagement.ApiClient\Sonar.UserTracksManagement.ApiClient.csproj" />
+      <ProjectReference Include="..\Sonar.Player.Application\Sonar.Player.Application.csproj" />
     </ItemGroup>
 
 </Project>
