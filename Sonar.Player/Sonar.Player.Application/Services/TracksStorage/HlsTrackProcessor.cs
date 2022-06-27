@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Sonar.Player.Application.Properties;
 using Sonar.Player.Application.Tools;
 using Sonar.Player.Domain.Entities;
 using Sonar.Player.Domain.Enumerations;
@@ -32,7 +33,7 @@ public class HlsTrackProcessor : ITrackStorage
 
         var arguments = FfmpegArgumentsBuilder.CreateBuilder()
                                               .GetSource(trackPath)
-                                              .SetBitrate(324)
+                                              .SetBitrate(Settings.Bitrate)
                                               .SetSegmentFilename(segmentPath)
                                               .WriteTo(infoFilePath)
                                               .Build();
