@@ -7,6 +7,9 @@ using Sonar.Player.Application.Services;
 
 namespace Sonar.Player.Api.Controllers;
 
+/// <summary>
+/// API Controller to manage tracks
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class FilesController : Controller
@@ -14,12 +17,24 @@ public class FilesController : Controller
     private readonly IMediator _mediator;
     private readonly IUserService _userService;
 
+    /// <summary>
+    /// Constructor lol
+    /// </summary>
+    /// <param name="mediator">Standard MediatR interface to interact with application layer</param>
+    /// <param name="userService">Interface to get authorized users</param>
     public FilesController(IMediator mediator, IUserService userService)
     {
         _mediator = mediator;
         _userService = userService;
     }
 
+    /// <summary>
+    /// Add track to service in user's profile
+    /// </summary>
+    /// <param name="token">Token to specify and verify user</param>
+    /// <param name="form"></param>
+    /// <param name="cancellationToken">CancellationToken to observe while waiting for the task to complete</param>
+    /// <returns>Identification descriptor for added track</returns>
     [HttpPost("track")]
     public async Task<ActionResult<UploadTrack.Response>> UploadTrackAsync(
         [FromHeader(Name = "Token")] string token,
@@ -40,6 +55,13 @@ public class FilesController : Controller
                     ), cancellationToken));
     }
 
+    /// <summary>
+    /// Metainformation to setup streaming via m3u8 format
+    /// </summary>
+    /// <param name="token">Token to specify and verify user</param>
+    /// <param name="trackId">Identification descriptor for streamed track</param>
+    /// <param name="cancellationToken">CancellationToken to observe while waiting for the task to complete</param>
+    /// <returns>File with required information</returns>
     [HttpGet("track-stream-info")]
     public async Task<IActionResult> GetTrackStreamInfoAsync(
         [FromHeader(Name = "Token")] string token,
@@ -50,6 +72,13 @@ public class FilesController : Controller
         return File(response.TrackInfoStream, "application/x-mpegURL", true);
     }
 
+    /// <summary>
+    /// Get small part to uniform load distribution of streaming track
+    /// </summary>
+    /// <param name="token">Token to specify and verify user</param>
+    /// <param name="streamPartName">Name of part to stream next</param>
+    /// <param name="cancellationToken">CancellationToken to observe while waiting for the task to complete</param>
+    /// <returns>File with required information</returns>
     [HttpGet("{streamPartName}")]
     public async Task<IActionResult> GetStreamPartAsync(
         [FromHeader(Name = "Token")] string token,
@@ -61,6 +90,13 @@ public class FilesController : Controller
         return File(response.StreamPart, "audio/MPA", true);
     }
 
+    /// <summary>
+    /// Remove track from user's profile
+    /// </summary>
+    /// <param name="token">Token to specify and verify user</param>
+    /// <param name="trackId">Identification descriptor for removed track</param>
+    /// <param name="cancellationToken">CancellationToken to observe while waiting for the task to complete</param>
+    /// <returns>Nothing</returns>
     [HttpDelete("track")]
     public async Task<IActionResult> DeleteTrackAsync(
         [FromHeader(Name = "Token")] string token, 
