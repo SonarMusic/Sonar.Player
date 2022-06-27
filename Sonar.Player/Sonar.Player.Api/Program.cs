@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Sonar.Player.Api.Bootstraps;
 using Sonar.Player.Api.Filters;
+using Sonar.Player.Application.Properties;
 using Sonar.Player.Application.Services;
 using Sonar.Player.Application.Services.TracksStorage;
 using Sonar.Player.Application.Tools;
@@ -12,6 +13,7 @@ using Sonar.UserTracksManagement.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var settings = Settings.GetInstance();
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console());
 
 builder.Services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
