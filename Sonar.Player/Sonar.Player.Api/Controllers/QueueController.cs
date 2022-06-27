@@ -27,6 +27,33 @@ public class QueueController : Controller
         var user = await _userService.GetUserAsync(token, cancellationToken);
         return Ok(await _mediator.Send(new GetQueue.Query(user), cancellationToken));
     }
+    
+    [HttpGet("next")]
+    public async Task<ActionResult<GetNextTrack.Response>> GetNextTrackAsync(
+        [FromHeader(Name = "Token")] string token,
+        CancellationToken cancellationToken = default)
+    {
+        var user = await _userService.GetUserAsync(token, cancellationToken);
+        return Ok(await _mediator.Send(new GetNextTrack.Query(user), cancellationToken));
+    }
+    
+    [HttpGet("previous")]
+    public async Task<ActionResult<GetPreviousTrack.Response>> GetPreviousTrackAsync(
+        [FromHeader(Name = "Token")] string token,
+        CancellationToken cancellationToken = default)
+    {
+        var user = await _userService.GetUserAsync(token, cancellationToken);
+        return Ok(await _mediator.Send(new GetPreviousTrack.Query(user), cancellationToken));
+    }
+    
+    [HttpGet("current")]
+    public async Task<ActionResult<GetCurrentTrack.Response>> GetCurrentTrackAsync(
+        [FromHeader(Name = "Token")] string token,
+        CancellationToken cancellationToken = default)
+    {
+        var user = await _userService.GetUserAsync(token, cancellationToken);
+        return Ok(await _mediator.Send(new GetCurrentTrack.Query(user), cancellationToken));
+    }
 
     [HttpPatch("playlist")]
     public async Task<IActionResult> AddPlaylistToQueueAsync(
@@ -56,7 +83,7 @@ public class QueueController : Controller
     }
 
     [HttpPatch("shuffle")]
-    public async Task<ActionResult<ShuffleQueue.Response>> ShuffleQueueAsync(
+    public async Task<IActionResult> ShuffleQueueAsync(
         [FromHeader(Name = "Token")] string token,
         CancellationToken cancellationToken = default)
     {
