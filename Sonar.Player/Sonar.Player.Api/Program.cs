@@ -8,7 +8,6 @@ using Sonar.Player.Application.Services.TracksStorage;
 using Sonar.Player.Application.Tools;
 using Sonar.Player.Data;
 using Sonar.UserProfile.ApiClient;
-using Sonar.UserProfile.ApiClient.Interfaces;
 using Sonar.UserTracksManagement.ApiClient;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +27,6 @@ builder.Services.AddDbContext<PlayerDbContext>(opt => opt.UseSqlite(
 
 builder.Services.AddMediatR(typeof(Sonar.Player.Application.IAssemblyMarker));
 builder.Services.AddScoped<ITrackStorage, LocalTrackStorage>();
-builder.Services.Decorate<ITrackStorage, TrackConverter>();
 builder.Services.Decorate<ITrackStorage, HlsTrackProcessor>();
 builder.Services.AddSingleton<ITrackPathBuilder, TrackPathBuilder>();
 builder.Services.Configure<TrackPathBuilderConfiguration>(builder.Configuration.GetRequiredSection("TrackPaths"));
