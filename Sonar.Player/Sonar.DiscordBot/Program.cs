@@ -8,7 +8,6 @@ var services = new ServiceCollection()
                .AddSingleton<DiscordSocketClient>()
                .AddSingleton<CommandService>()
                .AddSingleton<CommandHandler>()
-               .AddSingleton<HttpClient>()
                .BuildServiceProvider();
 
 var client = services.GetRequiredService<DiscordSocketClient>();
