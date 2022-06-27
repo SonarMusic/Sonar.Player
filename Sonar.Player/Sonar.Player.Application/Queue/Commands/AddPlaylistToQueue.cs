@@ -35,12 +35,9 @@ public static class AddPlaylistToQueue
             {
                 throw new ExternalApiException(e.Response, e.StatusCode);
             }
-
-            var newTracksList = playlist.Tracks
-                .Select(track => _dbContext.Tracks
-                    .First(x => x.Id == track.Id)).ToList();
+            
             var context = await _dbContext.GetOrCreateContext(request.User);
-            context.Queue.EnqueuePlaylistTracks(newTracksList);
+            context.Queue.EnqueuePlaylistTracks(playlist.Tracks.Select(t => t.Track.Id).ToList());
             _dbContext.Update(context.Queue);
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

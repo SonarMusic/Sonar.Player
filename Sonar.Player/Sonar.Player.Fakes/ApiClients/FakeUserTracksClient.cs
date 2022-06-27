@@ -52,6 +52,36 @@ public class FakeUserTracksClient : IUserTracksApiClient
         throw new NotImplementedException();
     }
 
+    public Task<bool> PrivateAsync(string token, Guid? trackId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> PrivateAsync(string token, Guid? trackId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> PublicAsync(string token, Guid? trackId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> PublicAsync(string token, Guid? trackId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> OnlyFansAsync(string token, Guid? trackId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> OnlyFansAsync(string token, Guid? trackId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<ICollection<TrackDto>> AllAsync(string token)
     {
         return AllAsync(token, CancellationToken.None);
@@ -70,5 +100,15 @@ public class FakeUserTracksClient : IUserTracksApiClient
     public Task<bool> IsEnoughAccessAsync(string token, Guid? trackId, CancellationToken cancellationToken)
     {
         return Task.FromResult(true);
+    }
+
+    public Task<ICollection<Playlist>> WithTag2Async(string token, string tag)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ICollection<Playlist>> WithTag2Async(string token, string tag, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -50,9 +50,9 @@ public class TracksQueue
         _tracks.Add(track.Id);
     }
 
-    public void EnqueuePlaylistTracks(List<Track> tracksList)
+    public void EnqueuePlaylistTracks(List<Guid> tracksList)
     {
-        _tracks.AddRange(tracksList.Select(t => t.Id));
+        _tracks.AddRange(tracksList);
         RemoveAdjacentDuplicates();
     }
 

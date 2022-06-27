@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Sonar.Player.Application.Services.TracksStorage;
+using Sonar.Player.Data;
 using Sonar.Player.Domain.Models;
 using Sonar.UserTracksManagement.ApiClient;
 using VideoLibrary;
@@ -16,12 +17,14 @@ public static class ImportFromYoutubeCommand
     public class CommandHandler : IRequestHandler<Command, Response>
     {
         private readonly IUserTracksApiClient _userTracksApiClient;
+        private readonly PlayerDbContext _dbContext;
         private readonly ITrackStorage _storage;
 
-        public CommandHandler(IUserTracksApiClient userTracksApiClient, ITrackStorage storage)
+        public CommandHandler(IUserTracksApiClient userTracksApiClient, ITrackStorage storage, PlayerDbContext dbContext)
         {
             _userTracksApiClient = userTracksApiClient;
             _storage = storage;
+            _dbContext = dbContext;
         }
 
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
@@ -33,8 +36,9 @@ public static class ImportFromYoutubeCommand
             var trackId = await _userTracksApiClient.TracksPOSTAsync(request.User.Token, name, cancellationToken);
             
             await using var videoStream = await video.StreamAsync();
-            await _storage.SaveTrack(trackId, VideoFormat.Mp4, videoStream);
-
+            var track = await _storage.SaveTrack(trackId, VideoFormat.Mp4, videoStream);
+            await _dbContext.Tracks.AddAsync(track, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return new Response(trackId);
         }
     }
